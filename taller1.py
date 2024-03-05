@@ -81,14 +81,14 @@ def mostrar_reporte(conjunto1, conjunto2):
     reporte += "Diferencia del conjunto 2 - conjunto 1: {}\n".format(conjunto2.diferencia(conjunto1).elementos)
     reporte += "Complemento del conjunto 1 respecto al universo: {}\n".format(conjunto1.complemento( universo ).elementos)
     reporte += "Cardinalidad del conjunto 1: {}\n".format(conjunto1.cardinalidad())
-    reporte += "¿Es el conjunto 1 subconjunto del conjunto 2?: {}\n"
+    reporte += "¿Es el conjunto 1 subconjunto del conjunto 2?: {}\n".format(conjunto1.es_subconjunto(conjunto2))
     reporte += "¿Son disjuntos los conjuntos 1 y 2?: {}\n".format(conjunto1.son_disjuntos(conjunto2))
     return reporte
 
 # Crear instancias de conjuntos
 universo = Conjunto([-1, -2, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
 conjunto1 = Conjunto([1, 2, 3])
-conjunto2 = Conjunto([1, 2, 3, 5, 6, 7, 8, 9])
+conjunto2 = Conjunto([1, 2, 3])
 
 # Mostrar reporte en una ventana emergente
 root = tk.Tk()
