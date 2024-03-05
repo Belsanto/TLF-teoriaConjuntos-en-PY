@@ -1,4 +1,7 @@
+import tkinter as tk
+from tkinter import messagebox
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib_venn import venn2
 
 class Conjunto:
@@ -30,7 +33,7 @@ class Conjunto:
         """
         Función para calcular el complemento de un conjunto con respecto a un universo dado.
         """
-    # Complemento del conjunto
+        # Complemento del conjunto
         return Conjunto([elemento for elemento in universo.elementos if elemento not in self.elementos])
 
     def cardinalidad(self):
@@ -65,19 +68,32 @@ class Conjunto:
         plt.title("Diagrama de Venn")
         plt.show()
 
+# Función para mostrar un reporte en una ventana emergente
+def mostrar_reporte(conjunto1, conjunto2):
 
-# Ejemplo de uso:
+    reporte = ""
+    reporte += "Universo: {}\n".format(universo.elementos)
+    reporte += "Conjunto 1: {}\n".format(conjunto1.elementos)
+    reporte += "Conjunto 2: {}\n".format(conjunto2.elementos)
+    reporte += "Unión: {}\n".format(conjunto1.union(conjunto2).elementos)
+    reporte += "Intersección: {}\n".format(conjunto1.interseccion(conjunto2).elementos)
+    reporte += "Diferencia del conjunto 1  - conjunto 2: {}\n".format(conjunto1.diferencia(conjunto2).elementos)
+    reporte += "Diferencia del conjunto 2 - conjunto 1: {}\n".format(conjunto2.diferencia(conjunto1).elementos)
+    reporte += "Complemento del conjunto 1 respecto al universo: {}\n".format(conjunto1.complemento( universo ).elementos)
+    reporte += "Cardinalidad del conjunto 1: {}\n".format(conjunto1.cardinalidad())
+    reporte += "¿Es el conjunto 1 subconjunto del conjunto 2?: {}\n"
+    reporte += "¿Son disjuntos los conjuntos 1 y 2?: {}\n".format(conjunto1.son_disjuntos(conjunto2))
+    return reporte
+
+# Crear instancias de conjuntos
+universo = Conjunto([-1, -2, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
 conjunto1 = Conjunto([1, 2, 3])
-conjunto2 = Conjunto([1, 2, 3, 4, 5, 6, 7, 8])
+conjunto2 = Conjunto([1, 2, 3, 5, 6, 7, 8, 9])
 
-print("Conjunto 1:", conjunto1.elementos)
-print("Conjunto 2:", conjunto2.elementos)
-print("Unión:", conjunto1.union(conjunto2).elementos)
-print("Intersección:", conjunto1.interseccion(conjunto2).elementos)
-print("Diferencia de conjunto1 - conjunto2:", conjunto1.diferencia(conjunto2).elementos)
-print("Diferencia de conjunto2 - conjunto1:", conjunto2.diferencia(conjunto1).elementos)
-print("Complemento de conjunto1 respecto al universo:", conjunto1.complemento(Conjunto([1, 2, 3, 4, 5, 6, 7, 8, 9])).elementos)
-print("Cardinalidad de conjunto1:", conjunto1.cardinalidad())
-print("¿Es conjunto1 subconjunto de conjunto2?:", conjunto1.es_subconjunto(conjunto2))
-print("¿Son disjuntos conjunto1 y conjunto2?:", conjunto1.son_disjuntos(conjunto2))
+# Mostrar reporte en una ventana emergente
+root = tk.Tk()
+root.withdraw()  # Ocultar la ventana principal
+messagebox.showinfo("Reporte de Operaciones entre Conjuntos", mostrar_reporte(conjunto1, conjunto2))
+
+# Mostrar el diagrama de Venn
 conjunto1.mostrar_diagrama_venn(conjunto2)
